@@ -1,3 +1,9 @@
+# Dart data files
+dart-data/*.txt
+dart-data/*.csv
+dart-data/dart-data.zip
+*.log
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
