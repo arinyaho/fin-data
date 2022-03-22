@@ -28,8 +28,6 @@ class Corp:
         self.capex = None
         self.equity_issue = 0
 
-
-
         self.market_cap = None
         self.sales_profit = None
         self.book_value = None

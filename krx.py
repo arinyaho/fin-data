@@ -55,8 +55,9 @@ _dart_kospi_title = '유가증권시장상장법인'
 _dart_kosdaq_title = '코스닥시장상장법인'
 
 
-def _load_pl(year: int, quarter: int, con: bool, corps: Dict[str, Corp]):
-    filename = get_filename(year, quarter, 'PL', con)
+def _load_pl(year: int, quarter: int, cpl: bool, con: bool, corps: Dict[str, Corp]):
+    type = 'CPL' if cpl else 'PL'
+    filename = get_filename(year, quarter, type, con)
 
     # Sales, Net-Income
     with open('dart-data/' + filename, 'r', encoding='utf-8') as fin:
@@ -253,8 +254,8 @@ def get_filename(year, quarter, type, c):
 
 
 def _load_data(corps, year, quarter, type, c=False):
-    if type == 'PL':    _load_pl(year, quarter, c, corps)
-    if type == 'CPL':   _load_pl(year, quarter, c, corps)
+    if type == 'PL':    _load_pl(year, quarter, False, c, corps)
+    if type == 'CPL':   _load_pl(year, quarter, True, c, corps)
     if type == 'CF':    _load_cf(year, quarter, c, corps)
     if type == 'BS':    _load_bs(year, quarter, c, corps)
     if type == 'CE':    _load_ce(year, quarter, c, corps)
