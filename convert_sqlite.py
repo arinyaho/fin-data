@@ -11,6 +11,7 @@ import sys, os
 _table_name = 'krx'
 
 _indicator_sql = [
+
     f'UPDATE {_table_name} SET market_cap=price*shares',                    # Market Cap
     f'UPDATE {_table_name} SET book_value=assets-liabilities',              # Book Value
     f'UPDATE {_table_name} SET per=market_cap/net_income',                  # PER
@@ -25,17 +26,18 @@ _indicator_sql = [
     f'UPDATE {_table_name} SET roa=net_income/equity',                      # ROE
     f'UPDATE {_table_name} SET sales_profit=sales-sales_cost',              # Sales Profit (매출총이익)
     f'UPDATE {_table_name} SET gpa=sales_profit/book_value',                # GP/A
+    f'UPDATE {_table_name} SET profit_growth_qoq=profit/(SELECT profit FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year AND old.quarter={_table_name}.quarter-1) WHERE quarter > 1',          # QoQ Profit Growth (2~4Q)
+    f'UPDATE {_table_name} SET profit_growth_qoq=profit/(SELECT profit FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter=4) WHERE quarter = 1',                              # QoQ Profit Growth (1Q)
+    f'UPDATE {_table_name} SET profit_growth_yoy=profit/(SELECT profit FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter={_table_name}.quarter) WHERE quarter = 1',          # YoY Profit Growth
+    f'UPDATE {_table_name} SET net_income_growth_qoq=net_income/(SELECT net_income FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year AND old.quarter={_table_name}.quarter-1) WHERE quarter > 1',  # QoQ Net Income Growth (2~4Q)
+    f'UPDATE {_table_name} SET net_income_growth_qoq=net_income/(SELECT net_income FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter=4) WHERE quarter = 1',                      # QoQ Net Income Growth (1Q)
+    f'UPDATE {_table_name} SET profit_growth_yoy=net_income/(SELECT net_income FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter={_table_name}.quarter) WHERE quarter = 1',  # YoY Net Income Growth
+    f'UPDATE {_table_name} SET assets_growth_qoq=assets/(SELECT assets FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year AND old.quarter={_table_name}.quarter-1) WHERE quarter > 1',          # QoQ Assets Growth (2~4Q)
+    f'UPDATE {_table_name} SET assets_growth_qoq=assets/(SELECT assets FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter=4) WHERE quarter = 1',                              # QoQ Assets Growth (1Q)
 ]
 
 '''
     
-
-
-        self.profit_growth_qoq = self.profit / qoq.profit
-        self.profit_growth_yoy = self.profit / yoy.profit
-        self.net_income_growth_qoq = self.net_income / qoq.net_income
-        self.net_income_growth_yoy = self.net_income / yoy.net_income
-        self.bool_value_grwoth_qoq = self.book_value / yoy.book_value
         self.asset_growth_qoq = self.assets / qoq.assets
         
         self.fscore_k = 0
@@ -136,10 +138,11 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
 
 
 def calculate_indicators(sql: str, cursor: sqlite3.Cursor):
+    print(sql)
     cursor.execute(sql)
     
 
 
 if __name__ == '__main__':
-    prep(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
+    # prep(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
     cal()
