@@ -4,6 +4,7 @@ dart-data/*.csv
 dart-data/dart-data.zip
 *.log
 *.db
+*.db-journal
 *.api
 
 # Byte-compiled / optimized / DLL files

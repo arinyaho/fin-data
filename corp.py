@@ -51,7 +51,7 @@ class Corp:
         self.net_income_growth_qoq = None
         self.net_income_growth_yoy = None
         self.bool_value_grwoth_qoq = None
-        self.asset_growth_qoq = None
+        self.assets_growth_qoq = None
         self.fscore_k = None
 
 
