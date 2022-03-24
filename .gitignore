@@ -3,7 +3,6 @@ dart-data/*.txt
 dart-data/*.csv
 dart-data/dart-data.zip
 *.log
-*.db
 *.db-journal
 *.api
 

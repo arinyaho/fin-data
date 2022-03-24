@@ -34,6 +34,10 @@ _indicator_sql = [
     f'UPDATE {_table_name} SET profit_growth_yoy=net_income/(SELECT net_income FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter={_table_name}.quarter) WHERE quarter = 1',  # YoY Net Income Growth
     f'UPDATE {_table_name} SET assets_growth_qoq=assets/(SELECT assets FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year AND old.quarter={_table_name}.quarter-1) WHERE quarter > 1',          # QoQ Assets Growth (2~4Q)
     f'UPDATE {_table_name} SET assets_growth_qoq=assets/(SELECT assets FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year-1 AND old.quarter=4) WHERE quarter = 1',                              # QoQ Assets Growth (1Q)
+    f'UPDATE {_table_name} SET fscore_k=0',     # F-Score
+    f'UPDATE {_table_name} SET fscore_k=fscore_k+1 WHERE equity_issue>0',     # F-Score
+    f'UPDATE {_table_name} SET fscore_k=fscore_k+1 WHERE net_income>0',       # F-Score
+    f'UPDATE {_table_name} SET fscore_k=fscore_k+1 WHERE cash_flow>0',        # F-Score
 ]
 
 '''
