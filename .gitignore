@@ -5,6 +5,7 @@ dart-data/dart-data.zip
 *.log
 *.db-journal
 *.api
+*.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

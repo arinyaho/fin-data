@@ -334,8 +334,8 @@ def load_dart_data(year: int, quarter: int) -> List[Corp]:
         ret = list(corps.values())
         return ret
     except Exception as ex:
-        traceback.print_stack()
-        print(ex)
+        # traceback.print_stack()
+        # print(ex)
         # print(traceback.format_exc())
         return None
 

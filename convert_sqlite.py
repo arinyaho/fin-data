@@ -83,15 +83,16 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
     conn = sqlite3.connect(sqlite_filename)
     tlist = []
     clist: List[corp.Corp] = []
-    while year * 10 + quarter < end_year * 10 + end_quarter:    
+    while year * 10 + quarter <= end_year * 10 + end_quarter:    
         print(f'Processing {year}-{quarter}Q', end='')
 
         corps = krx.load_dart_data(year, quarter)
-
         if corps is not None and len(corps) > 0:
             clist.append(corps)
             tlist.append((year, quarter))
             print(f', loaded {len(corps)} corporations.', end='')
+        else:
+            print(', No corporations.', end='')
         print()
         
         quarter += 1
@@ -102,26 +103,6 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
     dflist = []
     for i, t in enumerate(tlist):
         corps = clist[i]
-
-        '''
-        qoq_map = {}
-        yoy_map = {}
-        corps_map = {}
-
-        for c in corps:
-            corps_map[c.stock] = c
-        for c in clist[i - 1]:
-            qoq_map[c.stock] = c
-        for c in clist[i - 4]:
-            yoy_map[c.stock] = c
-        
-        if i > 4:
-            for c in corps:
-                qoq = qoq_map[c.stock]
-                yoy = yoy_map[c.stock]
-                c.cal_indicators(qoq, yoy)
-        '''
-
         d = pd.DataFrame([c.__dict__ for c in corps], index=[c.stock for c in corps])
         d = d.drop(['stock'], axis=1)
         d.index.name = 'stock'
