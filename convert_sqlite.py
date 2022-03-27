@@ -17,13 +17,14 @@ _indicator_sql = [
     f'UPDATE {_table_name} SET per=market_cap/net_income',                  # PER
     f'UPDATE {_table_name} SET pbr=market_cap/book_value',                  # PBR
     f'UPDATE {_table_name} SET psr=market_cap/sales',                       # PSR    
+    f'UPDATE {_table_name} SET fcf=cash_flow-capex',                      # FCF
     f'UPDATE {_table_name} SET pfcr=market_cap/(cash_flow-capex)',          # PFCR
     f'UPDATE {_table_name} SET iper=1/per',                                 # iPER
     f'UPDATE {_table_name} SET ipbr=1/pbr',                                 # iPBR
     f'UPDATE {_table_name} SET ipsr=1/psr',                                 # iPSR    
     f'UPDATE {_table_name} SET ipfcr=1/pfcr',                               # iPFCR
     f'UPDATE {_table_name} SET roa=net_income/(equity+liabilities)',        # ROA
-    f'UPDATE {_table_name} SET roa=net_income/equity',                      # ROE
+    f'UPDATE {_table_name} SET roe=net_income/equity',                      # ROE
     f'UPDATE {_table_name} SET sales_profit=sales-sales_cost',              # Sales Profit (매출총이익)
     f'UPDATE {_table_name} SET gpa=sales_profit/book_value',                # GP/A
     f'UPDATE {_table_name} SET profit_growth_qoq=profit/(SELECT profit FROM {_table_name} old WHERE old.stock={_table_name}.stock AND old.year={_table_name}.year AND old.quarter={_table_name}.quarter-1) WHERE quarter > 1',          # QoQ Profit Growth (2~4Q)
