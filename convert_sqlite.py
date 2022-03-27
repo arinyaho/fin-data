@@ -17,7 +17,7 @@ _indicator_sql = [
     f'UPDATE {_table_name} SET per=market_cap/net_income',                  # PER
     f'UPDATE {_table_name} SET pbr=market_cap/book_value',                  # PBR
     f'UPDATE {_table_name} SET psr=market_cap/sales',                       # PSR    
-    f'UPDATE {_table_name} SET fcf=cash_flow-capex',                      # FCF
+    f'UPDATE {_table_name} SET fcf=cash_flow-capex',                        # FCF
     f'UPDATE {_table_name} SET pfcr=market_cap/(cash_flow-capex)',          # PFCR
     f'UPDATE {_table_name} SET iper=1/per',                                 # iPER
     f'UPDATE {_table_name} SET ipbr=1/pbr',                                 # iPBR
@@ -132,5 +132,5 @@ def calculate_indicators(sql: str, cursor: sqlite3.Cursor):
 
 
 if __name__ == '__main__':
-    # prep(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
+    prep(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
     cal()

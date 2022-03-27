@@ -50,6 +50,6 @@ class Corp:
         self.profit_growth_yoy = None
         self.net_income_growth_qoq = None
         self.net_income_growth_yoy = None
-        self.book_value_grwoth_qoq = None
+        self.book_value_growth_qoq = None
         self.assets_growth_qoq = None
         self.fscore_k = None
