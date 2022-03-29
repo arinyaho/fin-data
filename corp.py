@@ -35,6 +35,7 @@ class Corp:
         self.pbr = None
         self.per = None
         self.psr = None
+        self.pcr = None
         self.fcf = None
         self.pfcr = None
         self.roa = None
@@ -45,6 +46,7 @@ class Corp:
         self.iper= None
         self.ipsr = None
         self.ipfcr = None
+        self.ipcr = None
 
         self.profit_growth_qoq = None
         self.profit_growth_yoy = None
@@ -52,4 +54,18 @@ class Corp:
         self.net_income_growth_yoy = None
         self.book_value_growth_qoq = None
         self.assets_growth_qoq = None
+        
+        # Orders
+        self.ord_ipbr = None
+        self.ord_iper= None
+        self.ord_ipsr = None
+        self.ord_ipfcr = None
+        self.ord_profit_growth_qoq = None
+        self.ord_profit_growth_yoy = None
+        self.ord_net_income_growth_qoq = None
+        self.ord_net_income_growth_yoy = None
+        self.ord_book_value_growth_qoq = None
+        self.ord_assets_growth_qoq = None
+        
+        # Scores
         self.fscore_k = None
