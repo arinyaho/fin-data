@@ -8,7 +8,7 @@ import corp
 import krx
 import sys, os
 
-
+_sqlite_filename = 'halq.db'
 _table_name = 'krx'
 
 _indicator_sql = [
@@ -46,28 +46,13 @@ _indicator_sql = [
     f'UPDATE {_table_name} SET fscore_k=fscore_k+1 WHERE cash_flow>0',        # F-Score
 ]
 
-'''
-    
-        self.asset_growth_qoq = self.assets / qoq.assets
-        
-        self.fscore_k = 0
-        if self.equity_issue > 0:
-            self.fscore_k += 1
-        if self.net_income > 0:
-            self.fscore_k += 1
-        if self.cash_flow > 0:
-            self.fscore_k += 1
-'''
-
 
 def cal():
-    sqlite_filename = 'krx.db'
-
-    if not os.path.exists(sqlite_filename):
-        print(f'{sqlite_filename} does not exist.')
+    if not os.path.exists(_sqlite_filename):
+        print(f'{_sqlite_filename} does not exist.')
         sys.exit()
 
-    conn = sqlite3.connect(sqlite_filename)
+    conn = sqlite3.connect(_sqlite_filename)
     cur = conn.cursor()
     for sql in _indicator_sql:
         calculate_indicators(sql, cur)
@@ -81,12 +66,11 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
     corps = None
     year = begin_year
     quarter = begin_quarter
-    sqlite_filename = 'krx.db'
 
-    if os.path.exists(sqlite_filename):
-        os.remove(sqlite_filename)
+    if os.path.exists(_sqlite_filename):
+        os.remove(_sqlite_filename)
 
-    conn = sqlite3.connect(sqlite_filename)
+    conn = sqlite3.connect(_sqlite_filename)
     tlist = []
     clist: List[corp.Corp] = []
     while year * 10 + quarter <= end_year * 10 + end_quarter:    
