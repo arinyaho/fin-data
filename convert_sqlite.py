@@ -1,4 +1,5 @@
 
+from datetime import datetime
 from typing import Dict, List
 
 import pandas as pd
@@ -11,7 +12,7 @@ import sys, os
 _table_name = 'krx'
 
 _indicator_sql = [
-
+    f'UPDATE {_table_name} SET market_cap=capex_intangible+capex_property', # capex
     f'UPDATE {_table_name} SET market_cap=price*shares',                    # Market Cap
     f'UPDATE {_table_name} SET book_value=assets-liabilities',              # Book Value
     f'UPDATE {_table_name} SET per=market_cap/net_income',                  # PER
@@ -134,5 +135,23 @@ def calculate_indicators(sql: str, cursor: sqlite3.Cursor):
 
 
 if __name__ == '__main__':
-    prep(int(sys.argv[1]), int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
+    if len(sys.argv) == 1:
+        year_start = 2016
+        quarter_start = 1
+        now = datetime.now()
+        year_end = now.year
+        quarter_end = 1
+        if now.month > 3:    quarter_end += 1
+        if now.month > 6:    quarter_end += 1
+        if now.month > 10:   quarter_end += 1
+    elif len(sys.argv) == 5:
+        year_start = int(sys.argv[1])
+        quarter_start = int(sys.argv[2])
+        year_end = int(sys.argv[3])
+        quarter_end = int(sys.argv[4])
+    else:
+        print('convert_sqlite.py [start year] [start quarter] [end year] [end quarter]')
+        sys.exit(1)
+
+    prep(year_start, quarter_start, year_end, quarter_end)
     cal()

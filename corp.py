@@ -25,9 +25,11 @@ class Corp:
         self.liabilities = None
         self.price = None
         self.shares = None
-        self.capex = None
         self.equity_issue = 0
+        self.capex_intangible = None
+        self.capex_property = None
 
+        self.capex = None
         self.market_cap = None
         self.sales_profit = None
         self.book_value = None
