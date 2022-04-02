@@ -12,7 +12,7 @@ _sqlite_filename = 'halq.db'
 _table_name = 'krx'
 
 _indicator_sql = [
-    f'UPDATE {_table_name} SET market_cap=capex_intangible+capex_property', # capex
+    f'UPDATE {_table_name} SET capex=capex_intangible+capex_property',      # capex
     f'UPDATE {_table_name} SET market_cap=price*shares',                    # Market Cap
     f'UPDATE {_table_name} SET book_value=assets-liabilities',              # Book Value
     f'UPDATE {_table_name} SET per=market_cap/net_income',                  # PER
@@ -68,6 +68,7 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
     quarter = begin_quarter
 
     if os.path.exists(_sqlite_filename):
+        print(f'Removing file {_sqlite_filename}')
         os.remove(_sqlite_filename)
 
     conn = sqlite3.connect(_sqlite_filename)
@@ -112,9 +113,11 @@ def prep(begin_year, begin_quarter, end_year, end_quarter):
     conn.close()
 
 
-def calculate_indicators(sql: str, cursor: sqlite3.Cursor):
+def calculate_indicators(sql: str, cursor: sqlite3.Cursor) -> int:
     print(sql)
-    cursor.execute(sql)
+    count = cursor.execute(sql)
+    return count
+
     
 
 

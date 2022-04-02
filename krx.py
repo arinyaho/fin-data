@@ -132,20 +132,21 @@ def _load_cf(year: int, quarter: int, con: bool, corps):
 
                 if value is None or len(value) == 0:
                     continue
-                value = int(value.replace(',', ''))
+                val = int(value.replace(',', ''))
+                assert val is not None
                 try:
                     if field == '영업활동현금흐름' or field == '영업활동으로인한현금흐름' or field_code == _dart_code_cash_flow1 or field_code == _dart_code_cash_flow2:
-                        c.cash_flow = value
+                        c.cash_flow = val
                     # elif field == '무형자산의취득' or field_code == _dart_code_capex1:
                     elif field == '무형자산의취득' or field_code == _dart_code_capex1 or field_code == _dart_code_capex2:
-                        if c.capex_intangible is not None:
-                            print('Capex-Intangible is already set:', c.stock, c.name, c.capex_intangible, value)
-                        c.capex_intangible == value
+                        # if c.capex_intangible is not None:
+                        #    print('Capex-Intangible is already set:', c.stock, c.name, c.capex_intangible, val)
+                        c.capex_intangible = val
                     # elif field == '유형자산의취득' or field_code == _dart_code_capex2:
                     elif field == '유형자산의취득' or field_code == _dart_code_capex3 or field_code == _dart_code_capex4:
-                        if c.capex_property is not None:
-                            print('Capex-Property is already set:', c.stock, c.name, c.capex_property, value)
-                        c.capex_property == value
+                        # if c.capex_property is not None:
+                        #    print('Capex-Property is already set:', c.stock, c.name, c.capex_property, val)
+                        c.capex_property = val
                 except ValueError:
                     traceback.print_stack()
                     print('Invalid', c.name, field, value)

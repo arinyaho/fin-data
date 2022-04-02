@@ -1,3 +1,5 @@
+.vscode
+
 # Dart data files
 dart-data/*.txt
 dart-data/*.csv
@@ -6,6 +8,7 @@ dart-data/dart-data.zip
 *.db-journal
 *.api
 *.ipynb
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
