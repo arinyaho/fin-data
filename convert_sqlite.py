@@ -154,8 +154,8 @@ def prep(begin_year: int, begin_quarter: int, end_year: int, end_quarter: int) -
                     ROW_NUMBER() OVER (ORDER BY ipsr DESC) AS ipsr_sorted, \
                     ROW_NUMBER() OVER (ORDER BY profit_growth_qoq DESC) AS profit_growth_qoq_sorted, \
                     ROW_NUMBER() OVER (ORDER BY net_income_growth_qoq DESC) AS net_income_growth_qoq_sorted, \
-                    ROW_NUMBER() OVER (ORDER BY assets_growth_qoq DESC) AS assets_growth_qoq_sorted, \
-                    ROW_NUMBER() OVER (ORDER BY book_value_growth_qoq DESC) AS book_value_growth_qoq_sorted, \
+                    ROW_NUMBER() OVER (ORDER BY assets_growth_qoq) AS assets_growth_qoq_sorted, \
+                    ROW_NUMBER() OVER (ORDER BY book_value_growth_qoq) AS book_value_growth_qoq_sorted, \
                     ROW_NUMBER() OVER (ORDER BY profit_growth_yoy DESC) AS profit_growth_yoy_sorted, \
                     ROW_NUMBER() OVER (ORDER BY net_income_growth_yoy DESC) AS net_income_growth_yoy_sorted \
                 FROM krx \
