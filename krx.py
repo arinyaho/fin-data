@@ -263,6 +263,15 @@ def _load_data(corps, year, quarter, type, c=False):
     if type == 'CE':    _load_ce(year, quarter, c, corps)
 
 
+def data_exists(year: int, quarter: int) -> bool:
+    ret = True
+    types = ['PL', 'CPL', 'CF', 'BS', 'CE']
+    for t in types:
+        ret = ret and os.path.exists('dart-data/' + get_filename(year, quarter, t, False))
+        ret = ret and os.path.exists('dart-data/' + get_filename(year, quarter, t, True))
+    return ret
+    
+
 def load_dart_data(year: int, quarter: int) -> List[Corp]:
     corps           : Dict[str, Corp] = {}
 

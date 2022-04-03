@@ -50,6 +50,14 @@ class Corp:
         self.ipfcr = None
         self.ipcr = None
 
+        self.qoq_net_income = None
+        self.qoq_profit = None
+        self.qoq_book_value = None
+        self.qoq_assets = None
+
+        self.yoy_net_income = None
+        self.yoy_profit = None
+
         self.profit_growth_qoq = None
         self.profit_growth_yoy = None
         self.net_income_growth_qoq = None
@@ -62,6 +70,7 @@ class Corp:
         self.ord_iper= None
         self.ord_ipsr = None
         self.ord_ipfcr = None
+        self.ord_ipcr = None
         self.ord_profit_growth_qoq = None
         self.ord_profit_growth_yoy = None
         self.ord_net_income_growth_qoq = None
